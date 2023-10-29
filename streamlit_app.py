@@ -2,9 +2,7 @@ import streamlit
 import pandas
 import requests
 import snowflake.connector
-
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
+from urllib.error import URLError
 
 streamlit.title('My Mom\'s New Healthy Diner')
 
@@ -40,6 +38,10 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # It show the normalized json in tabular form.
 streamlit.dataframe(fruityvice_normalized)
 
+streamlit.stop()
+
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+my_cur = my_cnx.cursor()
 my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
 my_data_row = my_cur.fetchall()
 streamlit.header("The fruit list load contains:")
