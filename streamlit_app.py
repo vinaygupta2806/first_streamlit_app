@@ -28,10 +28,8 @@ streamlit.dataframe(fruits_to_show)
 
 def get_fruityvice_data(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-    # It normalize the json
-    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-    # It show the normalized json in tabular form.
-    return fruityvice_normalized
+  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+  return fruityvice_normalized
 
 streamlit.header("Fruityvice Fruit Advice!")
 try:
